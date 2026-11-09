@@ -1,0 +1,20 @@
+{
+  "page": {"id": "fixture-page", "name": "Example Exchange", "time_zone": "Etc/UTC", "url": "https://status.example.test"},
+  "incidents": [
+    {
+      "id": "incident-alpha", "name": "Delayed transfers", "status": "resolved", "impact": "minor",
+      "created_at": "2026-01-05T10:00:00Z", "updated_at": "2026-01-05T12:00:00Z",
+      "resolved_at": "2026-01-05T12:00:00Z", "shortlink": "https://example.test/alpha",
+      "incident_updates": [
+        {"id": "update-alpha-1", "incident_id": "incident-alpha", "status": "investigating", "body": "Investigating delayed transfers.", "created_at": "2026-01-05T10:00:00Z", "updated_at": "2026-01-05T10:00:00Z"},
+        {"id": "update-alpha-2", "incident_id": "incident-alpha", "status": "resolved", "body": "Transfer processing recovered.", "created_at": "2026-01-05T12:00:00Z", "updated_at": "2026-01-05T12:00:00Z"}
+      ],
+      "components": [{"id": "component-transfers", "name": "Transfers", "status": "operational"}]
+    },
+    {
+      "id": "incident-beta", "name": "API latency", "status": "investigating", "impact": "major",
+      "created_at": "2026-01-06T01:00:00+02:00", "updated_at": "2026-01-06T01:00:00+02:00",
+      "incident_updates": [{"id": "update-beta-1", "status": "investigating", "created_at": "2026-01-06T01:00:00+02:00"}]
+    }
+  ]
+}
