@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-eri}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-eri}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+  app:
+    build: .
+    environment: &database_env
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_USER: ${POSTGRES_USER:-eri}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      DB_NAME: ${POSTGRES_DB:-eri}
+    depends_on:
+      db:
+        condition: service_healthy
+  test-db:
+    image: postgres:17-bookworm
+    profiles: [test]
+    environment:
+      POSTGRES_USER: eri_test
+      POSTGRES_PASSWORD: isolated-test-only
+      POSTGRES_DB: eri_test
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eri_test -d eri_test"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+  tests:
+    build: .
+    profiles: [test]
+    environment:
+      TEST_DATABASE_URL: postgresql+psycopg://eri_test:isolated-test-only@test-db:5432/eri_test
+    depends_on:
+      test-db:
+        condition: service_healthy
+    command: ["pytest", "-q"]
+volumes:
+  postgres_data:

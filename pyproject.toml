@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling==1.27.0", "editables==0.5"]
+build-backend = "hatchling.build"
+
+[project]
+name = "enterprise-risk-intelligence"
+version = "0.1.0"
+description = "Public operational incident ingestion and descriptive analytics"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "SQLAlchemy==2.0.44", "alembic==1.17.1", "pydantic==2.12.4",
+  "httpx==0.28.1", "psycopg[binary]==3.2.12",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.4.2", "ruff==0.14.4", "hatchling==1.27.0", "editables==0.5"]
+
+[project.scripts]
+eri = "enterprise_risk.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/enterprise_risk"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: requires a dedicated PostgreSQL TEST_DATABASE_URL"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
