@@ -16,6 +16,8 @@ services:
       retries: 30
   app:
     build: .
+    volumes:
+      - ./reports:/app/reports
     environment: &database_env
       DB_HOST: db
       DB_PORT: "5432"

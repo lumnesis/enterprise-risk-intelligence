@@ -1,0 +1,33 @@
+{
+  "artifacts_sha256": {
+    "daily_market_indicators.csv": "f5c9446659dc0ed30e1857ec07bc0f713f70c84d6b482dac7958a9213a2fa5a5",
+    "event_comparison.png": "c45c491a74b3838842e51a2d35aa67f20b6f0b5fa325e2a769f9148f5261c6a2",
+    "event_records.csv": "2378c39954bcce25449ee0fd72188a855993cdd83c5e250c5291377dbc50dc18",
+    "event_summary.csv": "1a8c09a77da66fe3f432d1da1328915593710fbc250574f73f8fd21c54f105e2",
+    "incident_coverage.json": "ba43b9bcfc79d968d57d128c9bd7f0df3cf3351a92ddeec96e388d8451e2a56a",
+    "incident_market_context.csv": "a484f0cfc45d16ff1dea2c960ae02526d9a83ec50f21c4581bde71cee6dca241",
+    "incident_market_stress.png": "4bdb692d7c73e3464a90a61c427d4d614ff6dc066b1ec555958aad7b2e38aef9",
+    "market_volatility.png": "0ea193b873857a02ba7900980d1cd699e3e4011c2ba7f5d7cd679f0f53c0acc8",
+    "phase2_market_incident_analysis.md": "3e1f1ca8c76360ca1a9448a806a47ceab59c254e6a6e29991a22c54cfeda1be6",
+    "quality_summary.json": "e41460a96791b14ecf467988948a4814b9098a73d43a59bb13755991d886c49e",
+    "source_snapshot.json": "ad9f652d7425d5c1f782fdbabb6d9f0dca22b8e94b95c517a4049e6eca236c80",
+    "statistical_results.json": "6568df08be123673123d1e92a00198350ef0bc53c4e5eb5c00d945b402a43636"
+  },
+  "calculation_version": "daily-v1-525074594d78fe52",
+  "end_exclusive": "2026-11-15",
+  "fixture_demonstration": false,
+  "generated_at": "2026-11-15T16:30:54.697937+00:00",
+  "indicator_parameters": {
+    "annualize": true,
+    "baseline_days": 30,
+    "quantile": 0.95,
+    "volume_z_threshold": 2.0
+  },
+  "input_sha256": "ad9f652d7425d5c1f782fdbabb6d9f0dca22b8e94b95c517a4049e6eca236c80",
+  "products": [
+    "BTC-USD",
+    "ETH-USD",
+    "SOL-USD"
+  ],
+  "start": "2026-06-21"
+}
