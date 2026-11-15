@@ -36,7 +36,7 @@ def write_json(path, value):
 def write_csv(path, rows, fields):
     fields = list(dict.fromkeys([*fields, *sorted({key for row in rows for key in row})]))
     with path.open("w", newline="", encoding="utf-8") as stream:
-        writer = csv.DictWriter(stream, fields)
+        writer = csv.DictWriter(stream, fields, lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow(
