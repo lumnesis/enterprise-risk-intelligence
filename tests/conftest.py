@@ -23,7 +23,10 @@ def engine(monkeypatch):
     engine = create_engine(url)
     with engine.begin() as conn:
         conn.execute(
-            text("TRUNCATE ingestion_runs, incidents, components RESTART IDENTITY CASCADE")
+            text(
+                "TRUNCATE market_products, incident_coverage, ingestion_runs, "
+                "incidents, components RESTART IDENTITY CASCADE"
+            )
         )
     yield engine
     engine.dispose()

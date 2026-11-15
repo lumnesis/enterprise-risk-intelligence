@@ -1,0 +1,800 @@
+{
+  "data": {
+    "candles": [],
+    "coverage": [],
+    "incidents": [
+      {
+        "components": [
+          "Coinbase - Mobile",
+          "Coinbase - Website"
+        ],
+        "created_at": "2026-09-19 08:49:33.799000+00:00",
+        "duration_hours": "519.5069763888888889",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Sends and Receives - EGLD (MultiversX)",
+        "occurrence_date": "2026-09-19",
+        "resolved_at": "2026-10-11 00:19:58.914000+00:00",
+        "source": "coinbase_status",
+        "source_id": "k5x6wlf8ws8b",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-09-21 18:19:57.762000+00:00",
+        "duration_hours": "73.1144619444444444",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "WMTX-USD to Limit Only",
+        "occurrence_date": "2026-09-21",
+        "resolved_at": "2026-09-24 19:26:49.825000+00:00",
+        "source": "coinbase_status",
+        "source_id": "d5jlny31tgk1",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-09-23 03:10:48.590000+00:00",
+        "duration_hours": "42.9922688888888889",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends - SUIWAL",
+        "occurrence_date": "2026-09-23",
+        "resolved_at": "2026-09-24 22:10:20.758000+00:00",
+        "source": "coinbase_status",
+        "source_id": "jt1rxcy33c5l",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-09-25 07:11:09.825000+00:00",
+        "duration_hours": "10.3899730555555556",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends/Receives - VeChain (VET)",
+        "occurrence_date": "2026-09-25",
+        "resolved_at": "2026-09-25 17:34:33.728000+00:00",
+        "source": "coinbase_status",
+        "source_id": "dfkgxkwg6v77",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-09-29 18:01:57.739000+00:00",
+        "duration_hours": "4.2088883333333333",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends/Receives - SUI",
+        "occurrence_date": "2026-09-29",
+        "resolved_at": "2026-09-29 22:14:29.737000+00:00",
+        "source": "coinbase_status",
+        "source_id": "yzvxyrzfssq5",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-02 01:44:45.557000+00:00",
+        "duration_hours": "87.0241216666666667",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends & Receives - ALEO",
+        "occurrence_date": "2026-10-02",
+        "resolved_at": "2026-10-05 16:46:12.395000+00:00",
+        "source": "coinbase_status",
+        "source_id": "gfx8zxsl1050",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-02 23:40:34.178000+00:00",
+        "duration_hours": "0.48937666666666666667",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends & Receives - INJ",
+        "occurrence_date": "2026-10-02",
+        "resolved_at": "2026-10-03 00:09:55.934000+00:00",
+        "source": "coinbase_status",
+        "source_id": "xkxjrqfw5vcn",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Avalanche"
+        ],
+        "created_at": "2026-10-07 02:02:52.159000+00:00",
+        "duration_hours": "0.16281611111111111111",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Sends - Avalanche C-Chain Network",
+        "occurrence_date": "2026-10-07",
+        "resolved_at": "2026-10-07 02:12:38.297000+00:00",
+        "source": "coinbase_status",
+        "source_id": "zpppj205c457",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-07 15:53:19.637000+00:00",
+        "duration_hours": "8.5918786111111111",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends/Receives - Injective Network",
+        "occurrence_date": "2026-10-07",
+        "resolved_at": "2026-10-08 00:28:50.400000+00:00",
+        "source": "coinbase_status",
+        "source_id": "szm8b0v8x89y",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Bitcoin",
+          "Bitcoin Cash",
+          "Dash",
+          "Litecoin",
+          "Zcash"
+        ],
+        "created_at": "2026-10-08 03:18:08.086000+00:00",
+        "duration_hours": "0.14172138888888888889",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Receives - BCH, BTC, DASH, LTC, ZEC",
+        "occurrence_date": "2026-10-08",
+        "resolved_at": "2026-10-08 03:26:38.283000+00:00",
+        "source": "coinbase_status",
+        "source_id": "wrw9dc78yfcn",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-08 07:00:33.695000+00:00",
+        "duration_hours": "0.15460277777777777778",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Degraded Performance - DEX Solana Transactions",
+        "occurrence_date": "2026-10-08",
+        "resolved_at": "2026-10-08 07:09:50.265000+00:00",
+        "source": "coinbase_status",
+        "source_id": "fhqztv3wv438",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Coinbase - Mobile",
+          "XRP",
+          "Coinbase - Website"
+        ],
+        "created_at": "2026-10-09 14:49:40.950000+00:00",
+        "duration_hours": "0.75429944444444444444",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Sends - XRP",
+        "occurrence_date": "2026-10-09",
+        "resolved_at": "2026-10-09 15:34:56.428000+00:00",
+        "source": "coinbase_status",
+        "source_id": "cdv950j6v7vg",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Interac (Canada)"
+        ],
+        "created_at": "2026-10-09 16:58:08.437000+00:00",
+        "duration_hours": "1.0015550000000000",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Interac - Deposits and Withdrawals Degraded",
+        "occurrence_date": "2026-10-09",
+        "resolved_at": "2026-10-09 17:58:14.035000+00:00",
+        "source": "coinbase_status",
+        "source_id": "m1jgvww0zjr6",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-10 23:24:52.687000+00:00",
+        "duration_hours": "0.76351833333333333333",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends - APT",
+        "occurrence_date": "2026-10-10",
+        "resolved_at": "2026-10-11 00:10:41.353000+00:00",
+        "source": "coinbase_status",
+        "source_id": "37j7kxfz2y99",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-12 06:03:03.225000+00:00",
+        "duration_hours": "10.0295291666666667",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Transactions - ALEO",
+        "occurrence_date": "2026-10-12",
+        "resolved_at": "2026-10-12 16:04:49.530000+00:00",
+        "source": "coinbase_status",
+        "source_id": "0sldycvpmwz6",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-12 18:18:12.501000+00:00",
+        "duration_hours": "108.4804050000000000",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Osmosis (OSMO) - Delayed Sends and Receives",
+        "occurrence_date": "2026-10-12",
+        "resolved_at": "2026-10-17 06:47:01.959000+00:00",
+        "source": "coinbase_status",
+        "source_id": "kjp5db2vnt2p",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-12 22:24:34.523000+00:00",
+        "duration_hours": "104.3966544444444444",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Celestia - Delayed Sends and Receives",
+        "occurrence_date": "2026-10-12",
+        "resolved_at": "2026-10-17 06:48:22.479000+00:00",
+        "source": "coinbase_status",
+        "source_id": "0zkp7jyg3dqf",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Coinbase - Website"
+        ],
+        "created_at": "2026-10-14 22:20:02.332000+00:00",
+        "duration_hours": "0.04540472222222222222",
+        "impact": "major",
+        "is_maintenance": false,
+        "name": "Site Performance - Coinbase Website",
+        "occurrence_date": "2026-10-14",
+        "resolved_at": "2026-10-14 22:22:45.789000+00:00",
+        "source": "coinbase_status",
+        "source_id": "27ptqxypnlf4",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-14 23:16:43.491000+00:00",
+        "duration_hours": "1.3634352777777778",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Fiat Deposits \u2014 India",
+        "occurrence_date": "2026-10-14",
+        "resolved_at": "2026-10-15 00:38:31.858000+00:00",
+        "source": "coinbase_status",
+        "source_id": "mh5hq2r1ccls",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-15 01:57:48.890000+00:00",
+        "duration_hours": "1.0743761111111111",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends/Receives - Kusama Network",
+        "occurrence_date": "2026-10-15",
+        "resolved_at": "2026-10-15 03:02:16.644000+00:00",
+        "source": "coinbase_status",
+        "source_id": "ty983bvb4xh4",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-15 06:45:54.455000+00:00",
+        "duration_hours": "9.7953655555555556",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "NEAR - Delayed Sends/Receives",
+        "occurrence_date": "2026-10-15",
+        "resolved_at": "2026-10-15 16:33:37.771000+00:00",
+        "source": "coinbase_status",
+        "source_id": "h3hy5pvqp26c",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-16 05:29:37.694000+00:00",
+        "duration_hours": "321.4540700000000000",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends - TON Network",
+        "occurrence_date": "2026-10-16",
+        "resolved_at": "2026-10-29 14:56:52.346000+00:00",
+        "source": "coinbase_status",
+        "source_id": "41ywx5zyyzpt",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-16 18:04:36.419000+00:00",
+        "duration_hours": "0.97302722222222222222",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends and Receives - Flare Network",
+        "occurrence_date": "2026-10-16",
+        "resolved_at": "2026-10-16 19:02:59.317000+00:00",
+        "source": "coinbase_status",
+        "source_id": "pzclk21qln2c",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-16 18:25:16.378000+00:00",
+        "duration_hours": "2.0213038888888889",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends and Receives - Kusama (KSM) Network",
+        "occurrence_date": "2026-10-16",
+        "resolved_at": "2026-10-16 20:26:33.072000+00:00",
+        "source": "coinbase_status",
+        "source_id": "mh155vzgn2wc",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-20 15:14:15.633000+00:00",
+        "duration_hours": "218.6454625000000000",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "GYEN conversion to USDC",
+        "occurrence_date": "2026-10-20",
+        "resolved_at": "2026-10-29 17:52:59.298000+00:00",
+        "source": "coinbase_status",
+        "source_id": "j1136zv051kg",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Coinbase - Mobile",
+          "Coinbase - Website",
+          "Solana"
+        ],
+        "created_at": "2026-10-21 14:09:26.853000+00:00",
+        "duration_hours": "0.16032333333333333333",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Sends and Receives - Solana",
+        "occurrence_date": "2026-10-21",
+        "resolved_at": "2026-10-21 14:19:04.017000+00:00",
+        "source": "coinbase_status",
+        "source_id": "sps4gk7wpgt3",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-22 00:18:28.988000+00:00",
+        "duration_hours": "1.0089022222222222",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends/Receives - TON Network",
+        "occurrence_date": "2026-10-22",
+        "resolved_at": "2026-10-22 01:19:01.036000+00:00",
+        "source": "coinbase_status",
+        "source_id": "sw5f0snq6p83",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "International Derivatives"
+        ],
+        "created_at": "2026-10-22 04:52:48.654000+00:00",
+        "duration_hours": "0.87094361111111111111",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Degraded Performance - Derivatives Portfolio Transfers",
+        "occurrence_date": "2026-10-22",
+        "resolved_at": "2026-10-22 05:45:04.051000+00:00",
+        "source": "coinbase_status",
+        "source_id": "m31h0hry5slb",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Coinbase - Mobile",
+          "Credit & Debit Cards",
+          "Coinbase - Website"
+        ],
+        "created_at": "2026-10-22 15:02:44.340000+00:00",
+        "duration_hours": "3.1437508333333333",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Card Payment Unavailable (US) - Try Another",
+        "occurrence_date": "2026-10-22",
+        "resolved_at": "2026-10-22 18:11:21.843000+00:00",
+        "source": "coinbase_status",
+        "source_id": "gw8cscnx8q9m",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-22 16:18:43.908000+00:00",
+        "duration_hours": "5.7868877777777778",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Mina - Delayed Sends & Receives",
+        "occurrence_date": "2026-10-22",
+        "resolved_at": "2026-10-22 22:05:56.704000+00:00",
+        "source": "coinbase_status",
+        "source_id": "cy0pxx4l461q",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-23 01:35:54.967000+00:00",
+        "duration_hours": "93.8098816666666667",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends/Receives - TON Network",
+        "occurrence_date": "2026-10-23",
+        "resolved_at": "2026-10-26 23:24:30.541000+00:00",
+        "source": "coinbase_status",
+        "source_id": "sx636qyd11b9",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Interac (Canada)"
+        ],
+        "created_at": "2026-10-25 07:23:25.335000+00:00",
+        "duration_hours": "67.0879797222222222",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Withdrawals - Interac e-Transfer",
+        "occurrence_date": "2026-10-25",
+        "resolved_at": "2026-10-28 02:28:42.062000+00:00",
+        "source": "coinbase_status",
+        "source_id": "j4tjnbxsw12l",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-10-26 14:46:26.570000+00:00",
+        "duration_hours": "1.0724022222222222",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Site Performance - Converts",
+        "occurrence_date": "2026-10-26",
+        "resolved_at": "2026-10-26 15:50:47.218000+00:00",
+        "source": "coinbase_status",
+        "source_id": "vvcvx7fq295v",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Zcash"
+        ],
+        "created_at": "2026-10-31 03:12:35+00:00",
+        "duration_hours": "3.5355500000000000",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Sends & Receives - Zcash Network",
+        "occurrence_date": "2026-10-31",
+        "resolved_at": "2026-10-31 06:44:42.980000+00:00",
+        "source": "coinbase_status",
+        "source_id": "8zxv6r3bq07y",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Coinbase - Mobile",
+          "Coinbase - Website",
+          "Solana"
+        ],
+        "created_at": "2026-10-31 14:38:37.417000+00:00",
+        "duration_hours": "0.68578638888888888889",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Sends and Receives - Solana",
+        "occurrence_date": "2026-10-31",
+        "resolved_at": "2026-10-31 15:19:46.248000+00:00",
+        "source": "coinbase_status",
+        "source_id": "0zfln0bkpc8f",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-11-01 01:21:35.006000+00:00",
+        "duration_hours": "0.50823750000000000000",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends & Receives - DATA",
+        "occurrence_date": "2026-11-01",
+        "resolved_at": "2026-11-01 01:52:04.661000+00:00",
+        "source": "coinbase_status",
+        "source_id": "dv0206bqq8qt",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Wallets",
+          "Onchain Tools"
+        ],
+        "created_at": "2026-11-02 08:14:06.887000+00:00",
+        "duration_hours": "9.6393852777777778",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Degraded Performance - DEX, Borrow and Lend",
+        "occurrence_date": "2026-11-02",
+        "resolved_at": "2026-11-02 17:52:28.674000+00:00",
+        "source": "coinbase_status",
+        "source_id": "gtbbshmr3k4r",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Bitcoin"
+        ],
+        "created_at": "2026-11-03 01:20:21.549000+00:00",
+        "duration_hours": "1.1149791666666667",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Transactions - BTC",
+        "occurrence_date": "2026-11-03",
+        "resolved_at": "2026-11-03 02:27:15.474000+00:00",
+        "source": "coinbase_status",
+        "source_id": "4ztg89fsdw4s",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-11-03 14:21:54.615000+00:00",
+        "duration_hours": null,
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Delayed Sends and Receives - Sonic Network",
+        "occurrence_date": "2026-11-03",
+        "resolved_at": null,
+        "source": "coinbase_status",
+        "source_id": "sgsgw21dz2jb",
+        "status": "investigating"
+      },
+      {
+        "components": [
+          "Coinbase - Mobile",
+          "Coinbase - Website"
+        ],
+        "created_at": "2026-11-04 14:57:53.606000+00:00",
+        "duration_hours": "9.0547252777777778",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Scheduled Maintenance \u2014 Aerodrome Finance (AERO) and Velodrome Finance (VELO) Migration",
+        "occurrence_date": "2026-11-04",
+        "resolved_at": "2026-11-05 00:01:10.617000+00:00",
+        "source": "coinbase_status",
+        "source_id": "dcx1v2c47h3g",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-11-05 00:11:33.876000+00:00",
+        "duration_hours": "1.4592847222222222",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Hedera - Delayed Sends",
+        "occurrence_date": "2026-11-05",
+        "resolved_at": "2026-11-05 01:39:07.301000+00:00",
+        "source": "coinbase_status",
+        "source_id": "3fy9f7rzjwf6",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-11-05 00:15:14+00:00",
+        "duration_hours": "1.3941875000000000",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Dfinity (ICP) - Delayed Sends",
+        "occurrence_date": "2026-11-05",
+        "resolved_at": "2026-11-05 01:38:53.075000+00:00",
+        "source": "coinbase_status",
+        "source_id": "t4x0q0rjmq25",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-11-05 03:05:30.244000+00:00",
+        "duration_hours": "188.9383655555555556",
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Disabled Sends / Receives - EVMSEI",
+        "occurrence_date": "2026-11-05",
+        "resolved_at": "2026-11-13 00:01:48.360000+00:00",
+        "source": "coinbase_status",
+        "source_id": "5pgqt8s63hkf",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-11-09 11:07:44.356000+00:00",
+        "duration_hours": null,
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Bank Payments Unavailable - INR (India)",
+        "occurrence_date": "2026-11-09",
+        "resolved_at": null,
+        "source": "coinbase_status",
+        "source_id": "0tlgts8cn5y8",
+        "status": "identified"
+      },
+      {
+        "components": [
+          "Dash"
+        ],
+        "created_at": "2026-11-10 00:18:34+00:00",
+        "duration_hours": "15.3023361111111111",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Sends - DASH",
+        "occurrence_date": "2026-11-10",
+        "resolved_at": "2026-11-10 15:36:42.410000+00:00",
+        "source": "coinbase_status",
+        "source_id": "wt72fdzhq79h",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Polkadot"
+        ],
+        "created_at": "2026-11-10 05:46:27.745000+00:00",
+        "duration_hours": "0.24821416666666666667",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Transactions - DOT Network",
+        "occurrence_date": "2026-11-10",
+        "resolved_at": "2026-11-10 06:01:21.316000+00:00",
+        "source": "coinbase_status",
+        "source_id": "fz4d10rvry23",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Payments"
+        ],
+        "created_at": "2026-11-10 23:11:42.145000+00:00",
+        "duration_hours": "17.9975127777777778",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Degraded Performance - Coinbase Payments",
+        "occurrence_date": "2026-11-10",
+        "resolved_at": "2026-11-11 17:11:33.191000+00:00",
+        "source": "coinbase_status",
+        "source_id": "fh746rkklsz7",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Ethereum"
+        ],
+        "created_at": "2026-11-12 00:37:27.079000+00:00",
+        "duration_hours": "1.0243338888888889",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Transactions - ETH/ERC20",
+        "occurrence_date": "2026-11-12",
+        "resolved_at": "2026-11-12 01:38:54.681000+00:00",
+        "source": "coinbase_status",
+        "source_id": "tyvr2ggx7bvh",
+        "status": "resolved"
+      },
+      {
+        "components": [
+          "Stacks (STX)"
+        ],
+        "created_at": "2026-11-12 06:11:54.782000+00:00",
+        "duration_hours": "12.0123500000000000",
+        "impact": "minor",
+        "is_maintenance": false,
+        "name": "Delayed Transactions - Stacks Network",
+        "occurrence_date": "2026-11-12",
+        "resolved_at": "2026-11-12 18:12:39.242000+00:00",
+        "source": "coinbase_status",
+        "source_id": "f11qs65jgf7q",
+        "status": "resolved"
+      },
+      {
+        "components": [],
+        "created_at": "2026-11-13 00:20:22.287000+00:00",
+        "duration_hours": null,
+        "impact": "none",
+        "is_maintenance": false,
+        "name": "Osmosis (OSMO) - Delayed Sends and Receives",
+        "occurrence_date": "2026-11-13",
+        "resolved_at": null,
+        "source": "coinbase_status",
+        "source_id": "jx3xg1gddhbm",
+        "status": "investigating"
+      }
+    ],
+    "indicators": [],
+    "ingestion_runs": [
+      {
+        "error": null,
+        "finished_at": "2026-11-15 16:18:22.358122+00:00",
+        "id": 1,
+        "outcome": "success",
+        "quality_issues": [],
+        "records_processed": 50,
+        "records_received": 50,
+        "records_rejected": 0,
+        "source": "coinbase_status",
+        "started_at": "2026-11-15 16:18:21.456309+00:00"
+      },
+      {
+        "error": "Market request failed after bounded retries",
+        "finished_at": "2026-11-15 16:24:37.620081+00:00",
+        "id": 2,
+        "outcome": "failed",
+        "quality_issues": [
+          {
+            "end_exclusive": "2026-11-15",
+            "product_id": "BTC-USD",
+            "start": "2026-06-21"
+          }
+        ],
+        "records_processed": 0,
+        "records_received": 0,
+        "records_rejected": 0,
+        "source": "coinbase_advanced_trade",
+        "started_at": "2026-11-15 16:24:29.777256+00:00"
+      },
+      {
+        "error": "Market request failed after bounded retries",
+        "finished_at": "2026-11-15 16:24:45.450503+00:00",
+        "id": 3,
+        "outcome": "failed",
+        "quality_issues": [
+          {
+            "end_exclusive": "2026-11-15",
+            "product_id": "ETH-USD",
+            "start": "2026-06-21"
+          }
+        ],
+        "records_processed": 0,
+        "records_received": 0,
+        "records_rejected": 0,
+        "source": "coinbase_advanced_trade",
+        "started_at": "2026-11-15 16:24:37.622787+00:00"
+      },
+      {
+        "error": "Market request failed after bounded retries",
+        "finished_at": "2026-11-15 16:24:53.281222+00:00",
+        "id": 4,
+        "outcome": "failed",
+        "quality_issues": [
+          {
+            "end_exclusive": "2026-11-15",
+            "product_id": "SOL-USD",
+            "start": "2026-06-21"
+          }
+        ],
+        "records_processed": 0,
+        "records_received": 0,
+        "records_rejected": 0,
+        "source": "coinbase_advanced_trade",
+        "started_at": "2026-11-15 16:24:45.452320+00:00"
+      }
+    ]
+  },
+  "manifest": {
+    "calculation_version": "daily-v1-525074594d78fe52",
+    "end_exclusive": "2026-11-15",
+    "fixture_demonstration": false,
+    "generated_at": "2026-11-15T16:30:54.697937+00:00",
+    "indicator_parameters": {
+      "annualize": true,
+      "baseline_days": 30,
+      "quantile": 0.95,
+      "volume_z_threshold": 2.0
+    },
+    "products": [
+      "BTC-USD",
+      "ETH-USD",
+      "SOL-USD"
+    ],
+    "start": "2026-06-21"
+  }
+}

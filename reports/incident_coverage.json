@@ -1,0 +1,16 @@
+{
+  "complete_day_count": 0,
+  "complete_days": [],
+  "evidence": [],
+  "first_observed_incident": "2026-09-19 08:49:33.799000+00:00",
+  "last_observed_incident": "2026-11-13 00:20:22.287000+00:00",
+  "limitation": "Latest-50 snapshots and their overlap do not prove a complete archive. Unverified dates are not zero-incident dates. Coverage attestations require independent analyst review.",
+  "maintenance_excluded": 0,
+  "observed_incidents": 50,
+  "operational_incidents": 50,
+  "requested_end_exclusive": "2026-11-15",
+  "requested_start": "2026-06-21",
+  "source": "coinbase_status",
+  "status": "partial_observations",
+  "unverified_day_count": 147
+}

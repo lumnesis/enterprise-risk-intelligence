@@ -1,205 +1,262 @@
 # Enterprise Risk Intelligence
 
-A portfolio project exploring enterprise risk analytics for cryptocurrency exchanges.
-Phase 1 collects public operational incidents and supports descriptive SQL queries:
-what incidents were observed, their reported impact/status, and when they were created.
-It is independent and is not affiliated with Coinbase.
+A reproducible exploratory risk-analysis project using Coinbase public operational
+incidents and daily cryptocurrency market data. Independent of Coinbase. No trading,
+price prediction, frontend, authentication, ML framework or composite risk score.
 
-## Current scope and verification status
+Phase 1 ingestion remains available. Phase 2 adds market ingestion, calendar-aware
+indicators, coverage-gated incident analysis, CSV/JSON exports and Matplotlib charts.
 
-Implemented: HTTP ingestion, per-incident validation, PostgreSQL persistence, Alembic
-migrations, idempotent upserts, execution audit records, a CLI, and SQL summaries.
-There is no risk score, prediction, frontend, or internal GRC dataset.
-
-**Live source verification remains pending.** This development environment's proxy
-returned HTTP 403 for both the API and its documentation. The implementation has
-been exercised against deterministic synthetic fixtures and real PostgreSQL, but
-has not yet ingested an observed Coinbase response. Do not treat fixture results as
-real operational evidence. See `tests/fixtures/README.md` for provenance.
-
-## Data source and interpretation
-
-- Incidents: <https://status.coinbase.com/api/v2/incidents.json>
-- Documentation to consult: <https://status.coinbase.com/api>
-- Coverage: the endpoint documents only the **50 most recent incidents**, not a
-  complete historical archive. No historical backfill or pagination is assumed.
-- These are provider-reported public incidents. Impact labels are the source's
-  labels, not independently measured financial loss or enterprise risk ratings.
-- Stored records accumulate across runs. Incidents falling out of the response
-  are retained. Missing dates in the summary do not establish zero incidents.
-- Any future simulated internal controls, losses, or GRC records must be explicitly
-  labelled and kept separate from public observations. Phase 1 contains none.
+**Current empirical limitation:** live Status ingestion succeeded with 50 records.
+This environment blocks `api.coinbase.com` and `docs.cdp.coinbase.com`, so no real
+market candles were collected. The [generated report](reports/phase2_market_incident_analysis.md)
+shows the missing data and withholds unsupported conclusions. The adapter is tested
+with deterministic fixtures and PostgreSQL, and its parameters/response fields were
+checked against Coinbase's official SDK; live market acceptance remains pending.
+See [source verification](docs/phase2_source_verification.md).
 
 ## Architecture
 
 ```text
-Coinbase Status HTTPS
-    -> HTTPX boundary (ingestion/coinbase.py)
-    -> Pydantic validation + UTC normalization (transformations.py)
-    -> transactional PostgreSQL upserts (ingestion/service.py)
-    -> SQL summaries (analytics/queries.py)
-    -> JSON CLI output
+Coinbase Status -> Phase 1 validation -> incidents / components / updates
+Coinbase public products/candles -> exact Decimal validation -> market_candles
+                         both -> ingestion_runs audit
+market_candles -> versioned indicators -> incident context / event windows
+coverage evidence -> explicit frequency gates -> statistics / report / charts
 ```
 
-```text
-src/enterprise_risk/
-  config.py, db.py       Environment settings and connection creation
-  models.py             SQLAlchemy 2.x normalized schema
-  transformations.py    Source validation and analytical row mapping
-  ingestion/            Source-specific retrieval and ingestion orchestration
-  analytics/            SQL counts, grouped summaries, quality reports
-  cli.py                ingest / counts / summary / quality commands
-migrations/             Versioned, explicit Alembic schema migration
-tests/                  Unit and PostgreSQL integration tests; offline fixtures
-.github/workflows/      Pull-request and push CI
-```
+Python 3.13, PostgreSQL 17, SQLAlchemy 2, Alembic, HTTPX, NumPy/SciPy and Matplotlib.
+No credentials are needed for public sources. Dependencies are transitively pinned
+with hashes in `requirements.lock`. Docker and CI use Python 3.13.5.
 
-The schema uses `(source, source_id)` primary keys for incidents, updates, and
-components. Incident/component relationships use a join table with foreign keys.
-Updates reference their parent incident. Date/time columns use PostgreSQL
-`timestamptz`; validation requires timezone-aware input and normalizes to UTC.
-Creation time, status/impact, and relationship indexes support the current queries.
-JSONB retains source fields and unknown attributes, with timestamps normalized;
-it is not a byte-for-byte archival copy of the HTTP response.
+Migration `0002` preserves all Phase 1 tables and adds:
 
-Each ingestion execution has a separately committed audit row. Valid records are
-stored atomically; invalid incidents (including invalid children) are rejected with
-field paths and error types. Outcomes are `success`, `partial`, `failed`, or
-`running`. HTTP and database failures are recorded without sensitive SQL/response
-contents when the database is reachable. A process kill can leave a `running` row;
-this is not a successful execution.
+- `market_products`: product identity, base/quote currencies, source metadata.
+- `market_candles`: unique daily product/start/granularity keys, `NUMERIC(38,18)`
+  OHLCV, UTC timestamps, source and ingestion-run lineage, OHLC constraints.
+- `market_risk_indicators`: product/date/version keys, returns, rolling volatility,
+  relative volume, stress flags, thresholds and calculation parameters.
+- `incident_coverage`: reviewed complete-observation intervals with evidence.
+- SQL views `operational_incident_facts` and `market_daily_returns` for incident
+  facts without component fanout and independently reproducible base returns.
 
-PostgreSQL upserts prevent duplicate records. A transaction-level advisory lock
-serializes this source's writes. Older incident snapshots cannot replace newer
-ones. Updates omitted by a later response are retained. Explicit component lists
-replace relationships; missing/null lists preserve existing relationships. Component
-names are the latest encountered names, not historical name versions.
+[Technical methods and data lineage](docs/phase2_architecture.md) explain formulas,
+calendar windows, filtering, sample-size gates, uncertainty and unresolved assumptions.
 
-`processed` counts accepted, non-stale incident snapshots, **not newly inserted
-rows**. Equal snapshots count as processed on repeat runs; only audit rows grow.
-`received` is the response incident count, and `rejected` counts invalid records.
-Unknown status/impact strings are retained; absent impact becomes `unknown`.
-Malformed envelopes fail the run; an empty valid incidents array succeeds with zero.
-HTTP failures/timeouts fail promptly without unbounded retries; rerun after fixing
-connectivity or observing provider rate-limit guidance.
+## Run in Windows PowerShell with Docker
 
-## Run from Windows PowerShell
-
-Prerequisite: Docker Desktop with Linux containers and Docker Compose v2. Python
-and PostgreSQL do not need to be installed on Windows. Run from the repository root.
+Use Docker Desktop with Linux containers and Compose v2, from the repository root.
+If `.env` does not exist, create it and choose a unique local database password:
 
 ```powershell
-Copy-Item .env.example .env
-# Edit .env and choose a unique local POSTGRES_PASSWORD before continuing.
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 notepad .env
 docker compose build
 docker compose up -d --wait db
 docker compose run --rm app alembic upgrade head
+
+# Existing Phase 1 commands:
 docker compose run --rm app eri ingest
 docker compose run --rm app eri counts
 docker compose run --rm app eri summary
 docker compose run --rm app eri quality
+
+# Default products: BTC-USD ETH-USD SOL-USD.
+# Default start: 90 days before earliest incident; default end: today's UTC midnight.
+docker compose run --rm app eri market-ingest
+docker compose run --rm app eri market-update
+docker compose run --rm app eri market-indicators
+docker compose run --rm app eri market-quality
+docker compose run --rm app eri market-analysis
+docker compose run --rm app eri market-report
 ```
 
-Do not overwrite an existing `.env`. Compose passes DB settings separately, so
-passwords with URL-special characters do not need manual URL encoding. Follow
-Compose `.env` quoting rules if your value contains `$` or `#`. `.env` is ignored
-by Git and excluded from Docker build context; `.env.example` has placeholders only.
-PostgreSQL binds only to host loopback and uses a persistent named volume. Changing
-`.env` credentials after initial database creation does not rotate existing roles.
+The `reports` directory is bind-mounted, so exports survive `--rm`. The analysis
+and report commands generate the same complete bundle; running either is sufficient.
+PostgreSQL persists in a named Docker volume. `docker compose down` stops services
+without removing data. Do not use `down -v` unless deliberately erasing database data.
 
-Ingestion requires outbound HTTPS access to `status.coinbase.com`; no API key is
-required. CLI exit codes: `0` successful command, `1` configuration/transport/database
-failure, `2` partial or fully rejected validation batch. `quality` displays the most
-recent 20 runs. Summaries group creation dates in UTC and cover all stored incidents.
+For a fixed historical period and configurable thresholds:
 
 ```powershell
-# Stop services while preserving data:
-docker compose down
-# Only to deliberately erase local database volumes:
-# docker compose --profile test down -v
+docker compose run --rm app eri market-ingest --products BTC-USD ETH-USD SOL-USD --start 2026-06-21 --end 2026-11-15
+docker compose run --rm app eri market-report --products BTC-USD ETH-USD SOL-USD --start 2026-06-21 --end 2026-11-15 --baseline-days 30 --quantile 0.95 --volume-z 2.0
 ```
 
-## Tests and CI
+Dates are UTC and **end is exclusive**, capped at today's midnight. Only completed
+daily candles enter finalized analytics. Widen the analysis period to include event
+windows and adequate warmup. Use the same indicator options for `market-quality`
+as the preceding calculation; report/analysis commands recalculate automatically.
+Incremental updates retry earlier gaps and refresh at least the last seven days.
+No data is interpolated. Repeated writes cannot duplicate source or indicator keys.
 
-```powershell
-# Separate ephemeral PostgreSQL test service; no live API calls:
-docker compose --profile test run --build --rm tests
-# Optional checks using the same application image:
-docker compose run --rm app ruff check .
-docker compose run --rm app ruff format --check .
-docker compose run --rm app alembic check
-# Stop the isolated test database after testing:
-docker compose --profile test stop test-db
-```
+### Native Python in PowerShell
 
-The test database uses fixed, disposable credentials and has no host port.
-Integration fixtures **truncate their target tables**: never point
-`TEST_DATABASE_URL` at a development or production database containing useful data.
-Without it, integration tests are reported as skipped, not passed. CI always supplies
-it and runs PostgreSQL tests, migration/schema checks, upgrade/downgrade checks,
-lint/format checks, and Compose configuration validation on push and pull request.
-
-Tests cover UTC normalization, missing/invalid fields, malformed envelopes/JSON,
-HTTP errors and timeouts, optional fields, unknown attributes, idempotency, changed
-records, stale responses, foreign keys, rollback, execution auditing and SQL summaries.
-
-For native Python 3.13 development (PowerShell):
+Install Python 3.13 and use a running local PostgreSQL instance (or the Compose DB):
 
 ```powershell
 py -3.13 -m venv .venv
 .\.venv\Scripts\python -m pip install --require-hashes -r requirements.lock
 .\.venv\Scripts\python -m pip install --no-deps --no-build-isolation -e .
-.\.venv\Scripts\pytest -q -m "not integration"
-# For DB commands supply DATABASE_URL=postgresql+psycopg://... or DB_* variables.
-# Use a dedicated disposable DB for TEST_DATABASE_URL when running integration tests.
+$env:DB_HOST = "localhost"
+$env:DB_PORT = "5432"
+$env:DB_USER = "eri"
+$env:DB_NAME = "eri"
+$secret = Read-Host "Local database password" -AsSecureString
+$env:DB_PASSWORD = [System.Net.NetworkCredential]::new("", $secret).Password
+.\.venv\Scripts\alembic upgrade head
+.\.venv\Scripts\eri ingest
+.\.venv\Scripts\eri market-ingest
+.\.venv\Scripts\eri market-update
+.\.venv\Scripts\eri market-indicators
+.\.venv\Scripts\eri market-quality
+.\.venv\Scripts\eri market-report
 ```
 
-Python is pinned to 3.13, with 3.13.5 used in Docker/CI. Runtime and test dependencies
-are pinned transitively with hashes in `requirements.lock`; regenerate deliberately
-with `uv pip compile pyproject.toml --extra dev --generate-hashes -o requirements.lock`.
-No dependency resolution is required during a normal locked install.
+Alternatively set `DATABASE_URL` with the `postgresql+psycopg` driver and properly
+escaped credentials. Separate `DB_*` settings avoid URL escaping. Never commit `.env`.
+Changing Compose credentials after database creation does not rotate existing roles.
 
-### Managed cloud proxy trust
+### Replay the delivered report without APIs or a database
 
-Ordinary Docker Desktop builds need no custom CA. In a managed environment with
-TLS inspection, mount its combined CA bundle through BuildKit (never disable TLS):
+The saved report is based on actual stored incident data and recorded market-source
+failures. This replay requires only installed Python dependencies:
+
+```powershell
+.\.venv\Scripts\eri market-render --snapshot reports/source_snapshot.json --output reports/replayed
+# Or through Docker (no database connection used by market-render):
+docker compose run --rm --no-deps app eri market-render --snapshot reports/source_snapshot.json --output reports/replayed
+```
+
+Replay deliberately exits **2** for the delivered snapshot because market data is
+absent. It still produces all artifacts. That status is a data-quality result,
+not a failed report-generation operation. JSON, CSV and report text replay are tested.
+`manifest.json` records date/configuration parameters, source snapshot hash and artifact
+hashes. Snapshots contain public incident facts and audit metadata, not credentials.
+
+## Analytical outputs
+
+| File in `reports/` | Purpose |
+| --- | --- |
+| `phase2_market_incident_analysis.md` | Facts, interpretations, limitations and next investigations |
+| `daily_market_indicators.csv` | Daily product/version observations and thresholds |
+| `incident_market_context.csv` | UTC incident dates, duration, severity, components and market lags |
+| `event_records.csv`, `event_summary.csv` | Event-level windows and descriptive aggregates |
+| `quality_summary.json` | Critical failures, gaps, null indicators and join checks |
+| `incident_coverage.json` | Observed dates, complete/unverified days and reviewed evidence |
+| `statistical_results.json` | Coverage-gated rates, lagged Spearman, duration and sensitivity results |
+| `market_volatility.png` | Rolling market volatility, with missing-data labels |
+| `incident_market_stress.png` | Incident dates and market stress, explicitly retrospective |
+| `event_comparison.png` | Market conditions around incident dates and sample sizes |
+| `source_snapshot.json`, `manifest.json` | Exact analytical input and reproducibility hashes |
+
+No real market observations means an empty indicator CSV with headers and clearly
+labeled unavailable market plots. This is preferable to claiming fixture-based
+results are empirical findings. All automated market fixtures are synthetic; tests
+never depend on a live API or mix fixture records into the real observation database.
+
+## Interpretation and coverage safeguards
+
+The central question is whether market stress coincides with operational incidents,
+not whether prices can be predicted. Daily returns are fractions; plots show percent.
+Volatility uses log returns, sample standard deviation and `sqrt(365)` annualization.
+Volume is **base-asset units**, normalized within each product using prior history.
+Stress thresholds use preceding rolling quantiles and an explicit volume z threshold.
+Insufficient history and zero variance remain null.
+
+Same-day completed candles are retrospective, never advance warning. Preceding-day
+context respects UTC boundaries. Counts are not multiplied by components or updates.
+Maintenance is excluded only through explicit source classifications; filters and
+ongoing/invalid durations are disclosed. Event windows may overlap and are not
+independent samples. Duration associations are conditional on observed resolved events.
+
+The incident feed returns only its **50 latest incidents**. Missing records do not
+establish zero-incident days. Frequency analysis is withheld unless independent
+complete-observation evidence has been reviewed. To record real reviewed evidence,
+create a JSON file outside the generated artifact names with these fields:
+
+```json
+{
+  "source": "coinbase_status",
+  "start_date": "YYYY-MM-DD",
+  "end_date": "YYYY-MM-DD",
+  "complete": true,
+  "evidence": "Specific independently reviewed archival evidence and location",
+  "reviewed_by": "Actual reviewer"
+}
+```
+
+Replace placeholders with actual evidence. This is not an assertion that such evidence
+exists. Place the file in `reports/coverage-evidence.json` for Docker access, then run:
+
+```powershell
+docker compose run --rm app eri coverage-import --coverage-file reports/coverage-evidence.json
+```
+
+Repeated interval registration is idempotent; overlapping reviewed intervals are
+unioned, not double counted. No coverage evidence was registered for the delivered
+live sample. Correlation is exploratory, not causal or operational significance.
+
+## Tests and CI
+
+```powershell
+docker compose --profile test run --build --rm tests
+docker compose run --rm app ruff check .
+docker compose run --rm app ruff format --check .
+docker compose run --rm app alembic check
+# Native unit tests only:
+.\.venv\Scripts\pytest -q -m "not integration"
+```
+
+Integration tests use `TEST_DATABASE_URL` pointing to a **dedicated disposable**
+PostgreSQL database and truncate target tables. Never point it at useful data.
+Without that variable PostgreSQL tests are skipped, not passed. CI supplies a separate
+PostgreSQL 17 service, checks lint/format, all tests, schema drift, migration roundtrips
+and Compose configuration. GitHub-hosted CI and a Windows host have not been run here.
+See [actual verification results](docs/phase2_validation.md).
+
+Dependencies can be deliberately regenerated with:
+`uv pip compile pyproject.toml --extra dev --generate-hashes -o requirements.lock`.
+Hash-locked installs do not resolve dependencies during normal builds.
+
+## Audit and command exit behavior
+
+Phase 1 source records retain raw JSONB and UTC timestamps. Newer incident snapshots
+cannot be overwritten by older updates; absent component lists preserve existing
+relationships, explicit lists replace them, and omitted updates remain stored.
+Valid records commit atomically; child validation failures reject their incident.
+`processed` counts accepted snapshots, not newly inserted incidents. Phase 1 `quality`
+displays the latest 20 ingestion runs, now including market runs.
+
+Market audit rows persist product/range, received/processed/rejected counts, gaps,
+completion status and safe transport errors. HTTP requests have bounded retries and
+pacing. A process kill can leave an audit row `running`; it is not a successful run.
+The DB must be available to record a failure. No source revision archive is provided.
+
+Exit codes: `0` successful operation; `1` configuration/uncaught transport/database
+failure; `2` a recorded non-success ingestion outcome or critical market quality
+failure. A market batch can fail one product and continue the others. Critical report
+failures do not suppress useful exports. CLI JSON explains the failure or limitation.
+
+## Managed network access
+
+Allow `status.coinbase.com`, `api.coinbase.com` and `docs.cdp.coinbase.com` in the
+environment's HTTP access policy. Keep TLS verification enabled. When a managed
+proxy requires its trusted CA, the Dockerfile supports BuildKit secrets:
 
 ```bash
-docker build --secret id=proxy_ca,src=/etc/ssl/certs/ca-certificates.crt -t eri-phase1 .
+docker build --secret id=proxy_ca,src=/etc/ssl/certs/ca-certificates.crt -t eri-phase2 .
 ```
 
-For runtime HTTPX, mount the trusted combined bundle read-only and set
-`SSL_CERT_FILE` to its container path. Preserve the platform's proxy configuration.
-Allow `status.coinbase.com` in environment network settings. A saved draft does not
-apply network access or publish an environment.
+At runtime mount the combined CA bundle read-only and set `SSL_CERT_FILE` to that
+path. Preserve inherited proxy settings. Normal Docker Desktop builds need no custom
+CA. A saved environment draft does not itself apply network changes to a running task.
 
-## Validation performed
+## Remaining work
 
-On Python 3.13.5 and PostgreSQL 17, all **39 tests passed** inside Docker Compose,
-including seven PostgreSQL integration tests, with no skips. Ruff lint/format,
-Compose configuration, Alembic schema-drift checks, and migration downgrade/upgrade
-passed. The application image built with hash verification and trusted proxy CA;
-container CLI migration, counts, summary and quality commands ran successfully.
-A blocked live ingestion exited with code 1 and persisted a failed audit record.
-GitHub-hosted CI and a Windows host have not been exercised in this workspace.
-
-## Remaining work and boundaries
-
-Phase 1's live acceptance check is still required: enable source access, consult the
-API documentation, inspect actual field types, then run migration, ingestion twice,
-counts, summary and quality against real public data. Add a sanitized observed
-fixture and adjust the parser if the verified contract differs. Until then the live
-pipeline is provisional. GitHub Actions is configured but must run on GitHub after
-these files are pushed. PowerShell commands use Docker-compatible syntax; they were
-validated through Docker on Linux rather than a Windows host.
-
-Other limits: no scheduler/backfill, no immutable version history, no schema-drift
-alerting, and no production deployment/security hardening. The database must be
-available to persist failure audits. Counts are descriptive and subject to source
-coverage, reporting practices and missed collection windows.
-
-Recommended Phase 2 scope (not implemented): schedule collection with freshness
-monitoring, capture collection coverage, and add documented data-quality and source
-contract checks before expanding to market indicators or explicitly simulated GRC
-records. Scope any new source or analytical claims separately.
+Engineering and deterministic validation are implemented. Live market acceptance,
+actual historical product coverage and an empirical market–incident conclusion remain
+blocked by network policy. Complete incident ascertainment remains analytically
+unresolved even after market access is restored. Phase 3 recommendations are scheduled
+collection, freshness monitoring, reviewed service/root-cause classifications and
+business-impact validation; those features have not been implemented in Phase 2.
